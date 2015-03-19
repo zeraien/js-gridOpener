@@ -1,0 +1,21 @@
+/* currently open box */
+.box.active
+{
+    opacity: .7;
+}
+
+/* inactive box */
+.box.inactive
+{
+}
+
+/* box in progress, !important to override stuff set in .active */
+.box.loading
+{
+    opacity: .4 !important;
+}
+
+/* content loaded from external page */
+.expandable .wrapper
+{
+}
