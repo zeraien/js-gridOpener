@@ -125,7 +125,7 @@ function _OpenIt(){
         }});
     };
 
-    this.loadExpandable = function($target, $url){
+    this.loadExpandable = function($target){
         var self = this;
         if($target.hasClass(this.cssClassActive)){
             this.scrollToActive($target);
@@ -137,7 +137,6 @@ function _OpenIt(){
             if($expanded.height()) this.hideExpandable(false);
 
             // Ajax - Load content
-            // TODO: all pages are preloaded?
             var data = { };
             var ajax_url = $target.attr(self.attributeURL);
             $.get(ajax_url, data, function(response){
@@ -162,7 +161,7 @@ function _OpenIt(){
         }
         $expanded.css('height', '0');
         $expanded.find('.wrapper').html(html);
-        $expanded.insertAfter($speakers.eq(insert_index)).data('insert_index', insert_index);;
+        $expanded.insertAfter($speakers.eq(insert_index)).data('insert_index', insert_index);
 
         var new_height = $expanded.addClass('expanded').height();
         $expanded.removeClass('expanded');
