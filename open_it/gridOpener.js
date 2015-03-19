@@ -17,6 +17,7 @@ function _OpenIt(){
     this.cssClassLoading = "loading";
     this.cssClassClose = "close";
     this.attributeURL = "data-url";
+    this.resizeTimer = null;
 
     this._dots = function()
     {
@@ -27,8 +28,26 @@ function _OpenIt(){
         return className;
     };
 
+    this.onResize = function()
+    {
+        var self = this;
+        var html = $(self.targetDivId).find('.wrapper').html();
+        self.hideExpandable(false);
+        window.setTimeout(function(){
+            self.showExpandable(html);
+        },500);
+    };
+
     this.init = function(){
-        this.initBoxes();
+        var self = this;
+        self.initBoxes();
+        $( window ).resize(function()
+        {
+            window.clearTimeout(self.resizeTimer);
+            self.resizeTimer = window.setTimeout(function(){
+                self.onResize();
+            },250);
+        });
     };
 
     this.initExpandable = function(){
