@@ -10,6 +10,7 @@ var OpenIt = new _OpenIt();
 
 function _OpenIt(){
 
+    this.isExpanded = false;
     this.targetDivId = "#expandable";
     this.cssClassBox = "box";
     this.cssClassActive = "active";
@@ -32,12 +33,15 @@ function _OpenIt(){
     this.onResize = function ()
     {
         var self = this;
-        var html = $(self.targetDivId).find('.wrapper').html();
-        self.hideExpandable(false);
-        window.setTimeout(function ()
+        if (self.isExpanded)
         {
-            self.showExpandable(html);
-        }, 500);
+            var html = $(self.targetDivId).find('.wrapper').html();
+            self.hideExpandable(false);
+            window.setTimeout(function ()
+            {
+                self.showExpandable(html);
+            }, 500);
+        }
     };
 
     this.init = function ()
@@ -139,7 +143,7 @@ function _OpenIt(){
                 $section.removeClass('animating');
             }
         });
-
+        self.isExpanded = false;
         // Scroll
         if ($active.length) this.scrollTo($active.offset().top - $('header').height(), Expo.easeInOut, 0.4);
     };
@@ -217,10 +221,10 @@ function _OpenIt(){
                 $expanded.css('height', 'auto');
             }
         });
-        this.scrollToActive($active);
+        self.scrollToActive($active);
 
-        $active.removeClass(this.cssClassLoading);
-
-        this.initExpandable();
+        $active.removeClass(self.cssClassLoading);
+        self.isExpanded = true;
+        self.initExpandable();
     };
 }
